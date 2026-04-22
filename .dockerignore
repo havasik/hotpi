@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.git/
+.github/
+openspec/
+*.log
+.DS_Store
+.env

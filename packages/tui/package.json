@@ -1,5 +1,5 @@
 {
-	"name": "@mariozechner/pi-tui",
+	"name": "@havasik/tui",
 	"version": "0.68.1",
 	"description": "Terminal User Interface library with differential rendering for efficient text-based applications",
 	"type": "module",
@@ -28,8 +28,11 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/badlogic/pi-mono.git",
+		"url": "git+https://github.com/havasik/hotpi.git",
 		"directory": "packages/tui"
+	},
+	"publishConfig": {
+		"access": "public"
 	},
 	"engines": {
 		"node": ">=20.0.0"

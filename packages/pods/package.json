@@ -1,6 +1,7 @@
 {
-	"name": "@mariozechner/pi",
+	"name": "@havasik/pods",
 	"version": "0.68.1",
+	"private": true,
 	"description": "CLI tool for managing vLLM deployments on GPU pods",
 	"type": "module",
 	"bin": {
@@ -26,14 +27,14 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/badlogic/pi-mono.git",
+		"url": "git+https://github.com/havasik/hotpi.git",
 		"directory": "packages/pods"
 	},
 	"engines": {
 		"node": ">=20.0.0"
 	},
 	"dependencies": {
-		"@mariozechner/pi-agent-core": "^0.68.1",
+		"@havasik/agent-core": "^0.68.1",
 		"chalk": "^5.5.0"
 	},
 	"devDependencies": {}

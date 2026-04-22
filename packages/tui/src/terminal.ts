@@ -65,7 +65,7 @@ export class ProcessTerminal implements Terminal {
 	private stdinBuffer?: StdinBuffer;
 	private stdinDataHandler?: (data: string) => void;
 	private writeLogPath = (() => {
-		const env = process.env.PI_TUI_WRITE_LOG || "";
+		const env = process.env.HOTPI_TUI_WRITE_LOG || "";
 		if (!env) return "";
 		try {
 			if (fs.statSync(env).isDirectory()) {

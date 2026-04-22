@@ -2,8 +2,8 @@
  * List available models with optional fuzzy search
  */
 
-import type { Api, Model } from "@mariozechner/pi-ai";
-import { fuzzyFilter } from "@mariozechner/pi-tui";
+import type { Api, Model } from "@havasik/ai";
+import { fuzzyFilter } from "@havasik/tui";
 import chalk from "chalk";
 import type { ModelRegistry } from "../core/model-registry.js";
 
