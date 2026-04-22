@@ -185,7 +185,7 @@ export function getBundledInteractiveAssetPath(name: string): string {
 const pkg = JSON.parse(readFileSync(getPackageJsonPath(), "utf-8"));
 
 export const APP_NAME: string = pkg.piConfig?.name || "hotpi";
-export const CONFIG_DIR_NAME: string = pkg.piConfig?.configDir || ".hotpi";
+export const CONFIG_DIR_NAME: string = pkg.piConfig?.configDir || ".pi";
 export const VERSION: string = pkg.version;
 
 // e.g., HOTPI_CODING_AGENT_DIR
@@ -200,10 +200,10 @@ export function getShareViewerUrl(gistId: string): string {
 }
 
 // =============================================================================
-// User Config Paths (~/.hotpi/agent/*)
+// User Config Paths (~/.pi/agent/*)
 // =============================================================================
 
-/** Get the agent config directory (e.g., ~/.hotpi/agent/) */
+/** Get the agent config directory (e.g., ~/.pi/agent/) */
 export function getAgentDir(): string {
 	const envDir = process.env[ENV_AGENT_DIR];
 	if (envDir) {
