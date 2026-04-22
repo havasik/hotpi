@@ -67,6 +67,11 @@ export {
 	type WriteToolInput,
 	type WriteToolOptions,
 } from "./write.js";
+export {
+	createReloadTool,
+	createReloadToolDefinition,
+	type ReloadToolOptions,
+} from "./reload.js";
 
 import type { AgentTool } from "@mariozechner/pi-agent-core";
 import type { ToolDefinition } from "../extensions/types.js";
@@ -77,11 +82,12 @@ import { createGrepTool, createGrepToolDefinition, type GrepToolOptions } from "
 import { createLsTool, createLsToolDefinition, type LsToolOptions } from "./ls.js";
 import { createReadTool, createReadToolDefinition, type ReadToolOptions } from "./read.js";
 import { createWriteTool, createWriteToolDefinition, type WriteToolOptions } from "./write.js";
+import { createReloadTool, createReloadToolDefinition, type ReloadToolOptions } from "./reload.js";
 
 export type Tool = AgentTool<any>;
 export type ToolDef = ToolDefinition<any, any>;
-export type ToolName = "read" | "bash" | "edit" | "write" | "grep" | "find" | "ls";
-export const allToolNames: Set<ToolName> = new Set(["read", "bash", "edit", "write", "grep", "find", "ls"]);
+export type ToolName = "read" | "bash" | "edit" | "write" | "grep" | "find" | "ls" | "reload_extensions";
+export const allToolNames: Set<ToolName> = new Set(["read", "bash", "edit", "write", "grep", "find", "ls", "reload_extensions"]);
 
 export interface ToolsOptions {
 	read?: ReadToolOptions;
@@ -91,6 +97,7 @@ export interface ToolsOptions {
 	grep?: GrepToolOptions;
 	find?: FindToolOptions;
 	ls?: LsToolOptions;
+	reload_extensions?: ReloadToolOptions;
 }
 
 export function createToolDefinition(toolName: ToolName, cwd: string, options?: ToolsOptions): ToolDef {
@@ -109,6 +116,9 @@ export function createToolDefinition(toolName: ToolName, cwd: string, options?: 
 			return createFindToolDefinition(cwd, options?.find);
 		case "ls":
 			return createLsToolDefinition(cwd, options?.ls);
+		case "reload_extensions":
+			if (!options?.reload_extensions) throw new Error("reload_extensions tool requires ReloadToolOptions");
+			return createReloadToolDefinition(cwd, options.reload_extensions);
 		default:
 			throw new Error(`Unknown tool name: ${toolName}`);
 	}
@@ -130,6 +140,9 @@ export function createTool(toolName: ToolName, cwd: string, options?: ToolsOptio
 			return createFindTool(cwd, options?.find);
 		case "ls":
 			return createLsTool(cwd, options?.ls);
+		case "reload_extensions":
+			if (!options?.reload_extensions) throw new Error("reload_extensions tool requires ReloadToolOptions");
+			return createReloadTool(cwd, options.reload_extensions);
 		default:
 			throw new Error(`Unknown tool name: ${toolName}`);
 	}
@@ -154,7 +167,7 @@ export function createReadOnlyToolDefinitions(cwd: string, options?: ToolsOption
 }
 
 export function createAllToolDefinitions(cwd: string, options?: ToolsOptions): Record<ToolName, ToolDef> {
-	return {
+	const tools: Record<string, ToolDef> = {
 		read: createReadToolDefinition(cwd, options?.read),
 		bash: createBashToolDefinition(cwd, options?.bash),
 		edit: createEditToolDefinition(cwd, options?.edit),
@@ -163,6 +176,10 @@ export function createAllToolDefinitions(cwd: string, options?: ToolsOptions): R
 		find: createFindToolDefinition(cwd, options?.find),
 		ls: createLsToolDefinition(cwd, options?.ls),
 	};
+	if (options?.reload_extensions) {
+		tools.reload_extensions = createReloadToolDefinition(cwd, options.reload_extensions);
+	}
+	return tools as Record<ToolName, ToolDef>;
 }
 
 export function createCodingTools(cwd: string, options?: ToolsOptions): Tool[] {
@@ -184,7 +201,7 @@ export function createReadOnlyTools(cwd: string, options?: ToolsOptions): Tool[]
 }
 
 export function createAllTools(cwd: string, options?: ToolsOptions): Record<ToolName, Tool> {
-	return {
+	const tools: Record<string, Tool> = {
 		read: createReadTool(cwd, options?.read),
 		bash: createBashTool(cwd, options?.bash),
 		edit: createEditTool(cwd, options?.edit),
@@ -193,4 +210,8 @@ export function createAllTools(cwd: string, options?: ToolsOptions): Record<Tool
 		find: createFindTool(cwd, options?.find),
 		ls: createLsTool(cwd, options?.ls),
 	};
+	if (options?.reload_extensions) {
+		tools.reload_extensions = createReloadTool(cwd, options.reload_extensions);
+	}
+	return tools as Record<ToolName, Tool>;
 }

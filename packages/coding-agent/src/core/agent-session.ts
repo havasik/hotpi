@@ -443,6 +443,9 @@ export class AgentSession {
 	// Track last assistant message for auto-compaction check
 	private _lastAssistantMessage: AssistantMessage | undefined = undefined;
 
+	// Reload requested by reload_extensions tool — executed after agent loop finishes
+	private _reloadPending = false;
+
 	/** Internal handler for agent events - shared by subscribe and reconnect */
 	private _handleAgentEvent = (event: AgentEvent): void => {
 		// Create retry promise synchronously before queueing async processing.
@@ -1089,6 +1092,12 @@ export class AgentSession {
 		preflightResult?.(true);
 		await this.agent.prompt(messages);
 		await this.waitForRetry();
+
+		// Handle deferred reload requested by reload_extensions tool
+		if (this._reloadPending) {
+			this._reloadPending = false;
+			await this.reload();
+		}
 	}
 
 	/**
@@ -2339,6 +2348,7 @@ export class AgentSession {
 			: createAllToolDefinitions(this._cwd, {
 					read: { autoResizeImages },
 					bash: { commandPrefix: shellCommandPrefix, shellPath },
+					reload_extensions: { requestReload: () => { this._reloadPending = true; } },
 				});
 
 		this._baseToolDefinitions = new Map(
@@ -2367,7 +2377,7 @@ export class AgentSession {
 
 		const defaultActiveToolNames = this._baseToolsOverride
 			? Object.keys(this._baseToolsOverride)
-			: ["read", "bash", "edit", "write"];
+			: ["read", "bash", "edit", "write", "reload_extensions"];
 		const baseActiveToolNames = options.activeToolNames ?? defaultActiveToolNames;
 		this._refreshToolRegistry({
 			activeToolNames: baseActiveToolNames,
