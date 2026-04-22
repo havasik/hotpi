@@ -535,7 +535,13 @@ pi.on("message_start", async (event, ctx) => {
 
 pi.on("message_update", async (event, ctx) => {
   // event.message
-  // event.assistantMessageEvent (token-by-token stream event)
+  // event.assistantMessageEvent — an AssistantMessageEvent from @mariozechner/pi-ai
+  // Stream event types: text_start, text_delta, text_end, thinking_start, thinking_delta,
+  //   thinking_end, toolcall_start, toolcall_delta, toolcall_end, done, error
+  const e = event.assistantMessageEvent;
+  if (e.type === "text_delta") {
+    console.log(e.delta); // streaming text chunk
+  }
 });
 
 pi.on("message_end", async (event, ctx) => {
