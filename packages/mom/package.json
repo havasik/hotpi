@@ -1,6 +1,6 @@
 {
 	"name": "@havasik/mom",
-	"version": "0.68.1",
+	"version": "0.68.2",
 	"private": true,
 	"description": "Slack bot that delegates messages to the hotpi coding agent",
 	"type": "module",
@@ -21,9 +21,9 @@
 	},
 	"dependencies": {
 		"@anthropic-ai/sandbox-runtime": "^0.0.16",
-		"@havasik/agent-core": "^0.68.1",
-		"@havasik/ai": "^0.68.1",
-		"@havasik/hotpi": "^0.68.1",
+		"@havasik/agent-core": "^0.68.2",
+		"@havasik/ai": "^0.68.2",
+		"@havasik/hotpi": "^0.68.2",
 		"@sinclair/typebox": "^0.34.0",
 		"@slack/socket-mode": "^2.0.0",
 		"@slack/web-api": "^7.0.0",

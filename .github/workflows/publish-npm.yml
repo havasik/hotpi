@@ -32,14 +32,5 @@ jobs:
       - name: Remove token auth to allow OIDC
         run: npm config delete //registry.npmjs.org/:_authToken || true
 
-      - name: Publish @havasik/tui
-        run: npm publish --workspace packages/tui --access public --provenance
-
-      - name: Publish @havasik/ai
-        run: npm publish --workspace packages/ai --access public --provenance
-
-      - name: Publish @havasik/agent-core
-        run: npm publish --workspace packages/agent --access public --provenance
-
-      - name: Publish @havasik/hotpi
-        run: npm publish --workspace packages/coding-agent --access public --provenance
+      - name: Publish
+        run: npm publish -ws --access public --provenance
