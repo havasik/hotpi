@@ -17,7 +17,14 @@
 
 ---
 
-# Pi Monorepo
+# HotPi — Pi fork with hot-reload support
+
+A fork of the [Pi monorepo](https://github.com/badlogic/pi-mono) that adds **built-in hot-reload for extensions**.
+
+## What's different from upstream Pi?
+
+- **`reload_extensions` tool** — a built-in LLM-callable tool that reloads all extensions, skills, prompts, and themes. The LLM can trigger a reload after writing or modifying extensions, without the user needing to manually type `/reload`. The reload is deferred until after the current response completes.
+- Active by default alongside `read`, `bash`, `edit`, `write`.
 
 > **Looking for the pi coding agent?** See **[packages/coding-agent](packages/coding-agent)** for installation and usage.
 
