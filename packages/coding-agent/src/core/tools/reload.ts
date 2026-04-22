@@ -10,10 +10,7 @@ export interface ReloadToolOptions {
 	requestReload: () => void;
 }
 
-export function createReloadToolDefinition(
-	_cwd: string,
-	options: ReloadToolOptions,
-): ToolDefinition {
+export function createReloadToolDefinition(_cwd: string, options: ReloadToolOptions): ToolDefinition {
 	return {
 		name: "reload_extensions",
 		label: "Reload Extensions",
@@ -31,6 +28,7 @@ export function createReloadToolDefinition(
 						text: "Reload scheduled. Extensions, skills, prompts, and themes will reload after this response completes.",
 					},
 				],
+				details: undefined,
 			};
 		},
 	};

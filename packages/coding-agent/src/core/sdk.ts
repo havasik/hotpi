@@ -244,7 +244,7 @@ export async function createAgentSession(options: CreateAgentSessionOptions = {}
 		thinkingLevel = "off";
 	}
 
-	const defaultActiveToolNames: ToolName[] = ["read", "bash", "edit", "write"];
+	const defaultActiveToolNames: ToolName[] = ["read", "bash", "edit", "write", "reload_extensions"];
 	const initialActiveToolNames: string[] = options.tools ? [...options.tools] : defaultActiveToolNames;
 
 	let agent: Agent;
