@@ -2348,7 +2348,11 @@ export class AgentSession {
 			: createAllToolDefinitions(this._cwd, {
 					read: { autoResizeImages },
 					bash: { commandPrefix: shellCommandPrefix, shellPath },
-					reload_extensions: { requestReload: () => { this._reloadPending = true; } },
+					reload_extensions: {
+						requestReload: () => {
+							this._reloadPending = true;
+						},
+					},
 				});
 
 		this._baseToolDefinitions = new Map(
