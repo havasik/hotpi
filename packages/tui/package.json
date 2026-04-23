@@ -1,6 +1,6 @@
 {
 	"name": "@havasik/tui",
-	"version": "0.68.5",
+	"version": "0.68.6",
 	"description": "Terminal User Interface library with differential rendering for efficient text-based applications",
 	"type": "module",
 	"main": "dist/index.js",
