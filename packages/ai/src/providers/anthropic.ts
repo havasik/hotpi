@@ -731,6 +731,8 @@ function createClient(
 	optionsHeaders?: Record<string, string>,
 	dynamicHeaders?: Record<string, string>,
 ): { client: Anthropic; isOAuthToken: boolean } {
+	const baseURL = process.env.ANTHROPIC_BASE_URL || model.baseUrl;
+
 	// Adaptive thinking models (Opus 4.6, Sonnet 4.6) have interleaved thinking built-in.
 	// The beta header is deprecated on Opus 4.6 and redundant on Sonnet 4.6, so skip it.
 	const needsInterleavedBeta = interleavedThinking && !supportsAdaptiveThinking(model.id);
@@ -745,7 +747,7 @@ function createClient(
 		const client = new Anthropic({
 			apiKey: null,
 			authToken: apiKey,
-			baseURL: model.baseUrl,
+			baseURL,
 			dangerouslyAllowBrowser: true,
 			defaultHeaders: mergeHeaders(
 				{
@@ -772,7 +774,7 @@ function createClient(
 		const client = new Anthropic({
 			apiKey: null,
 			authToken: apiKey,
-			baseURL: model.baseUrl,
+			baseURL,
 			dangerouslyAllowBrowser: true,
 			defaultHeaders: mergeHeaders(
 				{
@@ -793,7 +795,7 @@ function createClient(
 	// API key auth
 	const client = new Anthropic({
 		apiKey,
-		baseURL: model.baseUrl,
+		baseURL,
 		dangerouslyAllowBrowser: true,
 		defaultHeaders: mergeHeaders(
 			{
