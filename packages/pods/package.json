@@ -1,6 +1,6 @@
 {
 	"name": "@havasik/pods",
-	"version": "0.68.6",
+	"version": "0.68.7",
 	"private": true,
 	"description": "CLI tool for managing vLLM deployments on GPU pods",
 	"type": "module",
@@ -34,7 +34,7 @@
 		"node": ">=20.0.0"
 	},
 	"dependencies": {
-		"@havasik/agent-core": "^0.68.6",
+		"@havasik/agent-core": "^0.68.7",
 		"chalk": "^5.5.0"
 	},
 	"devDependencies": {}
