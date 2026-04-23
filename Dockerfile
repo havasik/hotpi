@@ -1,3 +1,10 @@
+FROM node:20-slim AS build
+WORKDIR /app
+COPY . .
+RUN npm ci && npm run build
+
 FROM node:20-slim
-RUN npm install -g @havasik/hotpi
+WORKDIR /app
+COPY --from=build /app .
+RUN npm install -g ./packages/coding-agent
 ENTRYPOINT ["hotpi"]
